@@ -4,6 +4,8 @@ import { container } from 'tsyringe'
 import { CreateDocumentService } from './modules/documents/services/CreateDocument/CreateDocumentService'
 import { FindDocumentService } from './modules/documents/services/FindDocument/FindDocumentService'
 
+import { App } from './shared/infra/fastify/app'
+
 const createDocumentService = container.resolve(CreateDocumentService)
 const findDocumentService = container.resolve(FindDocumentService)
 
@@ -22,3 +24,11 @@ async function simulacao() {
 }
 
 simulacao()
+
+App.listen({ port: 3000 }, (err, address) => {
+  if (err) {
+    console.error(err)
+    process.exit(1)
+  }
+  console.log(`Server listening at: ${address}`)
+})
