@@ -1,0 +1,28 @@
+{
+  "name": "notepadcoop_api",
+  "version": "1.0.0",
+  "description": "API do NotepadCoop",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.2.2",
+    "@types/node": "20.12.2",
+    "eslint": "8.57.0",
+    "tsup": "8.0.2",
+    "tsx": "4.7.1",
+    "typescript": "5.4.3"
+  },
+  "dependencies": {
+    "dotenv": "16.4.5",
+    "reflect-metadata": "0.2.2",
+    "tsyringe": "4.8.0",
+    "zod": "3.22.4"
+  }
+}
