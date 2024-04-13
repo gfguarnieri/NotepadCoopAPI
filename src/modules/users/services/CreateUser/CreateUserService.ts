@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
 import { IUser } from '../../models/IUser'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { PasswordHash } from '@/shared/security/PasswordHash'
+import { PasswordHash } from '@/shared/utils/PasswordHash'
 
 @injectable()
 export class CreateUserService {

@@ -4,7 +4,7 @@ import { ILoginUserDTO } from '../../dtos/ILoginUserDTO'
 import { ISimpleUserDTO } from '../../dtos/ISimpleUserDTO'
 import { NotepadCoopException } from '@/shared/errors/NotepadCoopException'
 import { randomUUID } from 'crypto'
-import { PasswordHash } from '@/shared/security/PasswordHash'
+import { PasswordHash } from '@/shared/utils/PasswordHash'
 
 @injectable()
 export class AuthenticateUserService {
