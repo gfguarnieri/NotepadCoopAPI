@@ -49,4 +49,10 @@ export class UsersRepository implements IUsersRepository {
     user.token = hash
     database.update(User.tableName, id, user)
   }
+
+  async findUserByToken(token: string): Promise<ISimpleUserDTO> {
+    const user = database.select(User.tableName, { token }) as ISimpleUserDTO
+    if (!user) return null
+    return user[0]
+  }
 }
