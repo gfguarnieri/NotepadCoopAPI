@@ -1,5 +1,5 @@
 import { IDocument } from '@/modules/documents/models/IDocument'
-import { IOutputData } from '@/modules/documents/models/IOutputData'
+import { IContent } from '@/modules/documents/models/IContent'
 import { randomUUID } from 'crypto'
 
 export class Document implements IDocument {
@@ -7,12 +7,17 @@ export class Document implements IDocument {
   id?: string
   userId?: string
   title: string
-  content?: IOutputData
+  content?: IContent
 
   constructor({ title, content, id, userId }: Document) {
     if (!id) this.id = randomUUID()
     this.title = title
     this.content = content
     this.userId = userId
+    this.content = {
+      blocks: [],
+      time: null,
+      version: '0',
+    }
   }
 }

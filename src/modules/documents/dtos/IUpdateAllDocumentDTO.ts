@@ -1,6 +1,6 @@
-import { IOutputData } from '@/modules/documents/models/IOutputData'
+import { IContent } from '@/modules/documents/models/IContent'
 
 export interface IUpdateAllDocumentDTO {
   title?: string
-  content: IOutputData
+  content: IContent
 }

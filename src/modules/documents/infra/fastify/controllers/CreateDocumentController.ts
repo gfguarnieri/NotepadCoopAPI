@@ -16,6 +16,6 @@ export class CreateDocumentController {
 
     const createDocumentService = container.resolve(CreateDocumentService)
     await createDocumentService.execute({ title, userId: request.userId })
-    return reply.status(200).send()
+    return reply.status(201).send()
   }
 }

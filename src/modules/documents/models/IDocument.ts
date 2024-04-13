@@ -1,8 +1,8 @@
-import { IOutputData } from './IOutputData'
+import { IContent } from './IContent'
 
 export interface IDocument {
   id?: string
   userId?: string
   title: string
-  content?: IOutputData
+  content?: IContent
 }

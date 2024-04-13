@@ -30,4 +30,9 @@ export class DocumentsRepository implements IDocumentsRepository {
     const document = database.findById(Document.tableName, id)
     return document
   }
+
+  async findDocumentsByUser(userId: string): Promise<IDocument[]> {
+    const document = database.select(Document.tableName, { userId })
+    return document
+  }
 }

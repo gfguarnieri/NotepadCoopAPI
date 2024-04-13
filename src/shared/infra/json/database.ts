@@ -1,9 +1,11 @@
+import { IContent } from '@/modules/documents/models/IContent'
 import { IDocument } from '@/modules/documents/models/IDocument'
 import { IUser } from '@/modules/users/models/IUser'
 
 interface IDatabaseJSON {
   documents: IDocument[]
   users: IUser[]
+  content: IContent[]
 }
 
 class Database {
@@ -13,6 +15,7 @@ class Database {
     this.#database = {
       documents: [],
       users: [],
+      content: [],
     }
   }
 
@@ -51,7 +54,7 @@ class Database {
     }
   }
 
-  select(table: string, search: any) {
+  select(table: string, search: any): any[] {
     const data = this.#database[table] ?? []
     if (!search || Object.keys(search).length === 0) {
       return data

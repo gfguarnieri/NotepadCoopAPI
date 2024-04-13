@@ -10,4 +10,5 @@ export interface IDocumentsRepository {
   ): Promise<IDocument>
   remove(id: string): Promise<void>
   findById(id: string): Promise<IDocument>
+  findDocumentsByUser(userId: string): Promise<IDocument[]>
 }
