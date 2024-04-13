@@ -28,7 +28,6 @@ export class DocumentsRepository implements IDocumentsRepository {
 
   async findById(id: string): Promise<IDocument> {
     const document = database.findById(Document.tableName, id)
-    console.log(document)
     return document
   }
 }

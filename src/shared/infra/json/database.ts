@@ -1,7 +1,9 @@
 import { IDocument } from '@/modules/documents/models/IDocument'
+import { IUser } from '@/modules/users/models/IUser'
 
 interface IDatabaseJSON {
   documents: IDocument[]
+  users: IUser[]
 }
 
 class Database {
@@ -10,6 +12,7 @@ class Database {
   constructor() {
     this.#database = {
       documents: [],
+      users: [],
     }
   }
 
@@ -32,7 +35,7 @@ class Database {
 
   remove(table: string, id: string) {
     if (Array.isArray(this.#database[table])) {
-      const index = this.#database[table].findIndex((e) => e.document.id === id)
+      const index = this.#database[table].findIndex((e) => e.id === id)
       if (index < 1) return
       this.#database[table].splice(index, 1)
     }
@@ -40,10 +43,24 @@ class Database {
 
   findById(table: string, id: string) {
     if (Array.isArray(this.#database[table])) {
-      const index = this.#database[table].findIndex((e) => e.document.id === id)
+      const index = this.#database[table].findIndex((e) => {
+        return e.id === id
+      })
       if (index < 0) return
       return this.#database[table][index]
     }
+  }
+
+  select(table: string, search: any) {
+    const data = this.#database[table] ?? []
+    if (!search || Object.keys(search).length === 0) {
+      return data
+    }
+    return data.filter((item) => {
+      return Object.keys(search).every((key) => {
+        return item[key] === search[key]
+      })
+    })
   }
 
   exportDatabase() {
