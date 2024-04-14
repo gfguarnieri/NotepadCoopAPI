@@ -4,11 +4,13 @@
 ## Requisitos funcionais
 - [x] Deve ser possível criar usuário
 - [x] Deve ser possível autenticar um usuário por meio de email e senha
-- [ ] Deve ser possível cadastrar documento
+- [x] Deve ser possível cadastrar documento
+- [x] Deve ser possível alterar documento
 - [ ] Deve ser possível remover documento
-- [ ] Deve ser possível alterar documento
 - [ ] Deve ser possível alterar item de documento
 - [ ] Deve ser possível remover item de documento
+- [ ] Deve ser possível adicionar mais um usuário no documento
+- [ ] Deve ser possível escolher nível de acesso de outro usuário no documento (leitura ou escrita)
  
 ## Regras de negócio
 - [ ] Somente o proprietário do documento poderá alterar o título do documento.
