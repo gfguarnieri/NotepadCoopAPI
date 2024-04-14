@@ -1,7 +1,9 @@
+import fs from 'node:fs/promises'
 import { IContent } from '@/modules/documents/models/IContent'
 import { IDocument } from '@/modules/documents/models/IDocument'
 import { IUser } from '@/modules/users/models/IUser'
 
+const databasePath = new URL('db_file.json', import.meta.url)
 interface IDatabaseJSON {
   documents: IDocument[]
   users: IUser[]
@@ -12,16 +14,28 @@ class Database {
   #database: IDatabaseJSON
 
   constructor() {
-    this.#database = {
-      documents: [],
-      users: [],
-      content: [],
-    }
+    fs.readFile(databasePath)
+      .then((data) => {
+        this.#database = JSON.parse(data.toString())
+      })
+      .catch(() => {
+        this.#database = {
+          documents: [],
+          users: [],
+          content: [],
+        }
+        this.#persist()
+      })
   }
 
-  create(table: string, data: any) {
+  async #persist() {
+    await fs.writeFile(databasePath, JSON.stringify(this.#database))
+  }
+
+  async create(table: string, data: any) {
     if (Array.isArray(this.#database[table])) {
       this.#database[table].push(data)
+      this.#persist()
     }
   }
 
@@ -32,6 +46,7 @@ class Database {
         Object.assign(item, data)
         const index = this.#database[table].findIndex((e) => e.id === id)
         this.#database[table][index] = item
+        this.#persist()
       }
     }
   }
@@ -41,6 +56,7 @@ class Database {
       const index = this.#database[table].findIndex((e) => e.id === id)
       if (index < 1) return
       this.#database[table].splice(index, 1)
+      this.#persist()
     }
   }
 
@@ -50,6 +66,7 @@ class Database {
         return e.id === id
       })
       if (index < 0) return
+      this.#persist()
       return this.#database[table][index]
     }
   }
@@ -61,6 +78,7 @@ class Database {
     }
     return data.filter((item) => {
       return Object.keys(search).every((key) => {
+        this.#persist()
         return item[key] === search[key]
       })
     })

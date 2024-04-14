@@ -2,6 +2,7 @@
   "name": "notepadcoop_api",
   "version": "1.0.0",
   "description": "API do NotepadCoop",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
