@@ -1,20 +1,25 @@
+import { UpdateContentControllerWS } from '@/modules/documents/infra/fastify/controllers/UpdateContentControllerWS'
 import { WebSocket } from '@fastify/websocket'
+import { FastifyRequest } from 'fastify'
 import zod from 'zod'
 
-export async function NewMessageService(socket: WebSocket, id, message) {
+export async function NewMessageService(
+  socket: WebSocket,
+  req: FastifyRequest,
+  content: string,
+) {
   const messageWSSchema = zod.object({
-    id: zod.string(),
-    type: zod.enum(['update', 'delete']),
-    message: zod.string(),
+    type: zod.enum(['update']),
+    message: zod.unknown(),
   })
 
-  const _message = await messageWSSchema.safeParseAsync(JSON.parse(message))
-  if (_message.success === false) {
-    socket.send(
-      JSON.stringify({
-        error: 1,
-        message: 'Invalid',
-      }),
-    )
+  const { type, message } = await messageWSSchema.parse(JSON.parse(content))
+
+  const updateContentControllerWS = new UpdateContentControllerWS()
+
+  switch (type) {
+    case 'update':
+      await updateContentControllerWS.handle(req, socket, message)
+      break
   }
 }

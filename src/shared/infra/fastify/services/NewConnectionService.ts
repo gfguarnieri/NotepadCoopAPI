@@ -8,7 +8,7 @@ export async function NewConnectionService(
   req: FastifyRequest,
 ) {
   listConnection.push({ id: req.id, clientSocket: socket })
-  socket.on('message', async (message) => {
-    await NewMessageService(socket, req.id, message)
+  socket.on('message', async (message: string) => {
+    await NewMessageService(socket, req, message)
   })
 }
