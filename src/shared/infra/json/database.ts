@@ -78,7 +78,6 @@ class Database {
     }
     return data.filter((item) => {
       return Object.keys(search).every((key) => {
-        this.#persist()
         return item[key] === search[key]
       })
     })

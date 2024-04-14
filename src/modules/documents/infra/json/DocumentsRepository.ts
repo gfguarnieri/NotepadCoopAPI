@@ -8,7 +8,7 @@ import { Document } from './entities/Document'
 export class DocumentsRepository implements IDocumentsRepository {
   async create({ title, userId }: ICreateDocumentDTO): Promise<IDocument> {
     const document = new Document({ title, userId })
-    database.create(Document.tableName, { document })
+    database.create(Document.tableName, document)
     return document
   }
 
