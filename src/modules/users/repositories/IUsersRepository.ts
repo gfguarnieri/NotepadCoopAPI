@@ -11,4 +11,5 @@ export interface IUsersRepository {
   authenticate({ email, password }: ILoginUserDTO): Promise<ISimpleUserDTO>
   refreshToken(id: string, token: string): Promise<void>
   findUserByToken(token: string): Promise<ISimpleUserDTO>
+  findUserByEmail(email: string): Promise<ISimpleUserDTO>
 }

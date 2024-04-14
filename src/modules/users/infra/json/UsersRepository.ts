@@ -17,7 +17,7 @@ export class UsersRepository implements IUsersRepository {
     id: string,
     { email, name, password }: ICreateUserDTO,
   ): Promise<IUser> {
-    const user = database.findById(User.tableName, id) as IUser
+    const user = database.findById(User.tableName, id)
     Object.assign(user, { email, name, password })
     database.update(User.tableName, id, user)
     return user
@@ -28,7 +28,7 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async findById(id: string): Promise<IUser> {
-    const user = database.findById(User.tableName, id) as IUser
+    const user = database.findById(User.tableName, id)
     return user
   }
 
@@ -45,13 +45,19 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async refreshToken(id: string, hash: string): Promise<void> {
-    const user = database.findById(User.tableName, id) as IUser
+    const user = database.findById(User.tableName, id)
     user.token = hash
     database.update(User.tableName, id, user)
   }
 
   async findUserByToken(token: string): Promise<ISimpleUserDTO> {
-    const user = database.select(User.tableName, { token }) as ISimpleUserDTO
+    const user = database.select(User.tableName, { token })
+    if (!user) return null
+    return user[0]
+  }
+
+  async findUserByEmail(email: string): Promise<ISimpleUserDTO> {
+    const user = database.select(User.tableName, { email })
     if (!user) return null
     return user[0]
   }

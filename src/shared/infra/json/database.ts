@@ -71,7 +71,7 @@ class Database {
     }
   }
 
-  select(table: string, search: any): any[] {
+  select(table: string, search: any) {
     const data = this.#database[table] ?? []
     if (!search || Object.keys(search).length === 0) {
       return data
